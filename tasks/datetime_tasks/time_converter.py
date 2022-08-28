@@ -6,3 +6,23 @@
 
 Функция должна возвращать время в новой временной зоне.
 """
+
+
+import datetime
+
+import pytz
+
+
+def convert_date(timestamp, current_zone, new_zone):
+    current_zone = pytz.timezone(current_zone)
+    new_zone = pytz.timezone(new_zone)
+
+    timestamp = datetime.datetime.strptime(timestamp, "%Y-%m-%d %H:%M:%S")
+    timestamp = current_zone.localize(timestamp)
+    timestamp = timestamp.astimezone(new_zone)
+    timestamp = timestamp.strftime("%Y-%m-%d %H:%M:%S")
+
+    return timestamp
+
+
+print(convert_date("2022-08-21 13:56:32", "Europe/Minsk", "America/Santo_Domingo"))
